@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: spenser_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres__data:/var/lib/postgresql/data
+      - ./backend/postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - '5432:5432'
+    networks:
+      - spenser_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  strapi:
+    build:
+      context: ./backend/strapi
+      dockerfile: Dockerfile
+    container_name: spenser_strapi
+    restart: unless-stopped
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB}
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      NODE_ENV: ${NODE_ENV:-development}
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+    volumes:
+      - ./backend/strapi:/app
+      - /app/node_modules
+    ports:
+      - '1337:1337'
+    networks:
+      - spenser_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  spenser_network:
+    driver: bridge
+
+volumes:
+  postgres__data:

@@ -1,4 +1,82 @@
-# Dockerized Strapi + PostgreSQL Setup
+# Dockerized Strapi + PostgreSQL Setup - Clean Rebuild Instructions
+
+## Clean Rebuild Steps
+
+1. Stop and remove all containers:
+   ```bash
+   docker compose down -v
+   ```
+
+2. Remove all related images:
+   ```bash
+   docker rmi $(docker images -q 'strapi-*')
+   ```
+
+3. Clean Docker system (optional):
+   ```bash
+   docker system prune -f
+   ```
+
+4. Rebuild and start fresh:
+   ```bash
+   docker compose build --no-cache
+   docker compose up -d
+   ```
+
+5. Verify containers are running:
+   ```bash
+   docker compose ps
+   ```
+
+6. Check container logs:
+   ```bash
+   docker compose logs -f
+   ```
+
+7. Verify Strapi is accessible:
+   - Admin panel: http://localhost:1337/admin
+   - API: http://localhost:1337
+
+## Automation Script
+Create a `rebuild.sh` script:
+```bash
+#!/bin/bash
+
+echo "Stopping and removing containers..."
+docker compose down -v
+
+echo "Removing old images..."
+docker rmi $(docker images -q 'strapi-*')
+
+echo "Cleaning Docker system..."
+docker system prune -f
+
+echo "Rebuilding containers..."
+docker compose build --no-cache
+
+echo "Starting services..."
+docker compose up -d
+
+echo "Waiting for services to start..."
+sleep 10
+
+echo "Checking container status..."
+docker compose ps
+
+echo "Rebuild complete! Check http://localhost:1337/admin"
+```
+
+Make the script executable:
+```bash
+chmod +x rebuild.sh
+```
+
+Run the rebuild:
+```bash
+./rebuild.sh
+```
+
+```# Dockerized Strapi + PostgreSQL Setup
 
 This document provides comprehensive instructions for setting up and running the Dockerized Strapi and PostgreSQL environment for SpenserMcConnell.com.
 
