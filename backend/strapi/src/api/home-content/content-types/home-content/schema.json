@@ -1,0 +1,47 @@
+{
+  "kind": "singleType",
+  "collectionName": "home_content",
+  "info": {
+    "singularName": "home-content",
+    "pluralName": "home-contents",
+    "displayName": "Home Content",
+    "description": "Content for the home page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero_title": {
+      "type": "text",
+      "required": true
+    },
+    "hero_subtitle": {
+      "type": "text"
+    },
+    "hero_description": {
+      "type": "text",
+      "required": true
+    },
+    "hero_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "latest_articles_title": {
+      "type": "string",
+      "default": "Latest Articles"
+    },
+    "article_filters": {
+      "type": "json",
+      "description": "Array of filter categories for articles"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "text"
+    }
+  }
+}

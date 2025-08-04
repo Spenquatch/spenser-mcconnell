@@ -373,6 +373,369 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAboutContentAboutContent extends Struct.SingleTypeSchema {
+  collectionName: 'about_content';
+  info: {
+    description: 'Content for the about page';
+    displayName: 'About Content';
+    pluralName: 'about-contents';
+    singularName: 'about-content';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bio_content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    bio_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Short Bio'>;
+    career_content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    career_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Career'>;
+    connect_content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    connect_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"Let's Connect">;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    featured_image: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::about-content.about-content'
+    > &
+      Schema.Attribute.Private;
+    page_title: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    seo_description: Schema.Attribute.Text;
+    seo_title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
+  collectionName: 'blog_posts';
+  info: {
+    description: 'Blog posts for the DevSpace template';
+    displayName: 'Blog Post';
+    pluralName: 'blog-posts';
+    singularName: 'blog-post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    author: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    authorImg: Schema.Attribute.Media<'images'>;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-post.blog-post'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    summary: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHeroHero extends Struct.SingleTypeSchema {
+  collectionName: 'hero';
+  info: {
+    description: 'Hero section content';
+    displayName: 'Hero';
+    pluralName: 'heroes';
+    singularName: 'hero';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::hero.hero'> &
+      Schema.Attribute.Private;
+    profileImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.RichText & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomeContentHomeContent extends Struct.SingleTypeSchema {
+  collectionName: 'home_content';
+  info: {
+    description: 'Content for the home page';
+    displayName: 'Home Content';
+    pluralName: 'home-contents';
+    singularName: 'home-content';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    article_filters: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero_description: Schema.Attribute.Text & Schema.Attribute.Required;
+    hero_image: Schema.Attribute.Media<'images'>;
+    hero_subtitle: Schema.Attribute.Text;
+    hero_title: Schema.Attribute.Text & Schema.Attribute.Required;
+    latest_articles_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Latest Articles'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-content.home-content'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo_description: Schema.Attribute.Text;
+    seo_title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProjectProject extends Struct.CollectionTypeSchema {
+  collectionName: 'projects';
+  info: {
+    description: 'Projects for the DevSpace template';
+    displayName: 'Project';
+    pluralName: 'projects';
+    singularName: 'project';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    iconColor: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 7;
+      }> &
+      Schema.Attribute.DefaultTo<'#34D399'>;
+    iconSvgPath: Schema.Attribute.Text & Schema.Attribute.Required;
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::project.project'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResumeContentResumeContent extends Struct.SingleTypeSchema {
+  collectionName: 'resume_content';
+  info: {
+    description: 'Content for the resume page';
+    displayName: 'Resume Content';
+    pluralName: 'resume-contents';
+    singularName: 'resume-content';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    awards: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    education: Schema.Attribute.JSON;
+    languages: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::resume-content.resume-content'
+    > &
+      Schema.Attribute.Private;
+    page_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'My resume'>;
+    publishedAt: Schema.Attribute.DateTime;
+    recommendations: Schema.Attribute.JSON;
+    references: Schema.Attribute.JSON;
+    seo_description: Schema.Attribute.Text;
+    seo_title: Schema.Attribute.String;
+    technical_skills: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    work_experience: Schema.Attribute.JSON;
+  };
+}
+
+export interface ApiSubscribeContentSubscribeContent
+  extends Struct.SingleTypeSchema {
+  collectionName: 'subscribe_content';
+  info: {
+    description: 'Content for the subscribe/newsletter page';
+    displayName: 'Subscribe Content';
+    pluralName: 'subscribe-contents';
+    singularName: 'subscribe-content';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    form_button_text: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Subscribe'>;
+    form_placeholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Your email'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscribe-content.subscribe-content'
+    > &
+      Schema.Attribute.Private;
+    newsletter_benefits: Schema.Attribute.JSON;
+    page_description: Schema.Attribute.Text & Schema.Attribute.Required;
+    page_title: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    seo_description: Schema.Attribute.Text;
+    seo_title: Schema.Attribute.String;
+    subscriber_avatars: Schema.Attribute.Media<'images', true>;
+    subscriber_count_text: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Join 100K+ developers.'>;
+    success_message: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Thanks for subscribing!'>;
+    testimonials: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTalkTalk extends Struct.CollectionTypeSchema {
+  collectionName: 'talks';
+  info: {
+    description: 'Talks for the template';
+    displayName: 'Talk';
+    pluralName: 'talks';
+    singularName: 'talk';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::talk.talk'> &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWidgetWidget extends Struct.CollectionTypeSchema {
+  collectionName: 'widgets';
+  info: {
+    description: 'Sidebar widgets';
+    displayName: 'Widget';
+    pluralName: 'widgets';
+    singularName: 'widget';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.JSON;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::widget.widget'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    type: Schema.Attribute.Enumeration<['newsletter', 'sponsor', 'book']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -882,6 +1245,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::about-content.about-content': ApiAboutContentAboutContent;
+      'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::hero.hero': ApiHeroHero;
+      'api::home-content.home-content': ApiHomeContentHomeContent;
+      'api::project.project': ApiProjectProject;
+      'api::resume-content.resume-content': ApiResumeContentResumeContent;
+      'api::subscribe-content.subscribe-content': ApiSubscribeContentSubscribeContent;
+      'api::talk.talk': ApiTalkTalk;
+      'api::widget.widget': ApiWidgetWidget;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

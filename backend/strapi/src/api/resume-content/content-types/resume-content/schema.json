@@ -1,0 +1,54 @@
+{
+  "kind": "singleType",
+  "collectionName": "resume_content",
+  "info": {
+    "singularName": "resume-content",
+    "pluralName": "resume-contents",
+    "displayName": "Resume Content",
+    "description": "Content for the resume page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "page_title": {
+      "type": "string",
+      "default": "My resume"
+    },
+    "education": {
+      "type": "json",
+      "description": "Array of education entries with degree, school, duration, description"
+    },
+    "work_experience": {
+      "type": "json",
+      "description": "Array of work experience entries with title, company, duration, description"
+    },
+    "awards": {
+      "type": "json",
+      "description": "Array of awards with title, organization, year, description"
+    },
+    "recommendations": {
+      "type": "json",
+      "description": "Array of recommendations with name, title, company, content"
+    },
+    "technical_skills": {
+      "type": "json",
+      "description": "Array of technical skills with name and proficiency level"
+    },
+    "languages": {
+      "type": "json",
+      "description": "Array of languages with name and proficiency level"
+    },
+    "references": {
+      "type": "json",
+      "description": "Array of references with name, title, avatar"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "text"
+    }
+  }
+}

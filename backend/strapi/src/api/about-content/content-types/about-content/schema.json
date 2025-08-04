@@ -1,0 +1,56 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_content",
+  "info": {
+    "singularName": "about-content",
+    "pluralName": "about-contents",
+    "displayName": "About Content",
+    "description": "Content for the about page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "page_title": {
+      "type": "text",
+      "required": true
+    },
+    "featured_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "bio_title": {
+      "type": "string",
+      "default": "Short Bio"
+    },
+    "bio_content": {
+      "type": "richtext",
+      "required": true
+    },
+    "career_title": {
+      "type": "string",
+      "default": "Career"
+    },
+    "career_content": {
+      "type": "richtext",
+      "required": true
+    },
+    "connect_title": {
+      "type": "string",
+      "default": "Let's Connect"
+    },
+    "connect_content": {
+      "type": "richtext",
+      "required": true
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "text"
+    }
+  }
+}

@@ -51,26 +51,20 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./devspace-next
       dockerfile: Dockerfile
     container_name: spenser_frontend
     restart: unless-stopped
     environment:
       - NODE_ENV=${NODE_ENV:-development}
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:1337}
-      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
-      - REDIS_URL=${REDIS_URL:-redis://redis:6379}
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
+      - NEXT_PUBLIC_STRAPI_URL=http://strapi:1337
+      - NEXT_PUBLIC_STRAPI_API_TOKEN=${NEXT_PUBLIC_STRAPI_API_TOKEN}
     ports:
       - '3000:3000'
     networks:
       - spenser_network
     depends_on:
       - strapi
-      - redis
 
   redis:
     image: redis:alpine
